@@ -5,6 +5,7 @@ import :Material;
 
 import math;
 
+import <array>;
 import <vector>;
 import <numbers>;
 import <fstream>;

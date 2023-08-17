@@ -61,7 +61,18 @@ export namespace math
 		constexpr Vector<J - I> subvector() const
 		{
 			Vector<J - I> result;
-			std::copy(components.begin() + I, components.begin() + J, result.components.begin());
+			// TODO std::copy() doesn't work since the last Visual Studio update for some reason.
+			for (std::size_t i = I; i < J; i++)
+			{
+				result[i - I] = components[i];
+			}
+			// I may be insane, but for some reason the following doesn't work:
+			/*
+			for (std::size_t i = 0; i < J - I; i++)
+			{
+				result[i] = components[I + i];
+			}
+			*/
 			return result;
 		}
 		template<std::size_t I, std::enable_if_t<I <= N>* = nullptr>
