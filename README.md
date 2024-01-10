@@ -22,6 +22,9 @@ Mathics is a single-threaded CPU rasterizer made as part of CS 334 in Fall 2022 
 * A shader which supports ambient, diffuse, and specular lighting with plenty of customization options.
 * A basic material system.
 
+# Controls
+W, A, S, D, left shift, and space to move; click on the window and use the mouse to look around.
+
 # Dependencies
 * OpenGL 2.1 loaded with Glad (only used for blitting the final image onto the screen)
 * GLFW 3.3
