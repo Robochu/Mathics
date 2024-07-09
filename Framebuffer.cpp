@@ -241,7 +241,7 @@ export namespace graphics
 				{
 					if ((v1 | v2 | v3) >= 0)
 					{
-						zb[x] = std::max(zb[x], z);
+						zb[x] = std::max(zb[x], z - math::epsilon);
 					}
 
 					v1 += fa2;

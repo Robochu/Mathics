@@ -36,14 +36,14 @@ export namespace math
 		>* = nullptr>
 		constexpr Vector(const T... components) : components({components...}) {}
 		template<std::size_t M, std::enable_if_t<M < N>* = nullptr>
-		explicit constexpr Vector(const Vector<M>& vector)
+		explicit constexpr Vector(const Vector<M>& vec)
 		{
-			std::copy(vector.components.begin(), vector.components.end(), components.begin());
+			std::copy(vec.components.begin(), vec.components.end(), components.begin());
 			std::fill(components.begin() + M, components.end(), 0.0f);
 		}
 		template<std::size_t M, std::enable_if_t<(M > N)>* = nullptr>
-		explicit constexpr Vector(const Vector<M>& vector) :
-			components(vector.subvector<N>().components) {}
+		explicit constexpr Vector(const Vector<M>& vec) :
+			components(vec.subvector<N>().components) {}
 		constexpr Vector(const Matrix<1, N>& matrix) : Vector(matrix[0]) {}
 		template<std::size_t D = N, std::enable_if_t<D != 1>* = nullptr>
 		constexpr Vector(const Matrix<N, 1>& matrix) : Vector(matrix.getColumn(0)) {}
@@ -61,18 +61,7 @@ export namespace math
 		constexpr Vector<J - I> subvector() const
 		{
 			Vector<J - I> result;
-			// TODO std::copy() doesn't work since the last Visual Studio update for some reason.
-			for (std::size_t i = I; i < J; i++)
-			{
-				result[i - I] = components[i];
-			}
-			// I may be insane, but for some reason the following doesn't work:
-			/*
-			for (std::size_t i = 0; i < J - I; i++)
-			{
-				result[i] = components[I + i];
-			}
-			*/
+			std::copy(components.begin() + I, components.begin() + J, result.components.begin());
 			return result;
 		}
 		template<std::size_t I, std::enable_if_t<I <= N>* = nullptr>
